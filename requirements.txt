@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+chromadb
+pypdf
+passlib
+bcrypt
+python-dotenv
+openai

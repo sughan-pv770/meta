@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocKey AI — Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: #f8f9fa;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem;
+        }
+
+        .page-wrapper {
+            display: flex; width: 100%; max-width: 900px;
+            background: #fff; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden; min-height: 520px;
+        }
+
+        /* Left branding panel */
+        .brand-panel {
+            width: 42%; background: linear-gradient(145deg, #e62e2d, #b91c1b);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 3rem 2rem; text-align: center; position: relative; overflow: hidden;
+        }
+        .brand-panel::before {
+            content: ''; position: absolute; width: 250px; height: 250px;
+            background: rgba(255,255,255,0.06); border-radius: 50%;
+            top: -80px; right: -80px;
+        }
+        .brand-panel::after {
+            content: ''; position: absolute; width: 180px; height: 180px;
+            background: rgba(255,255,255,0.06); border-radius: 50%;
+            bottom: -60px; left: -60px;
+        }
+        .brand-logo { font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; letter-spacing: -1px; position: relative; z-index: 1; }
+        .brand-logo span { opacity: 0.85; }
+        .brand-tagline { color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.6; position: relative; z-index: 1; margin-top: 0.5rem; }
+        .brand-features { margin-top: 2rem; text-align: left; position: relative; z-index: 1; }
+        .feature-item { display: flex; align-items: center; gap: 0.6rem; color: rgba(255,255,255,0.85); font-size: 0.82rem; margin-bottom: 0.75rem; }
+        .feature-icon { width: 22px; height: 22px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
+
+        /* Right form panel */
+        .form-panel { flex: 1; padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+        .form-title { font-size: 1.6rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.3rem; }
+        .form-subtitle { font-size: 0.875rem; color: #6b7280; margin-bottom: 2rem; }
+
+        .alert {
+            background: #fef2f2; border: 1px solid #fecaca; color: #dc2626;
+            padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.25rem;
+            font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .tabs { display: flex; border-bottom: 2px solid #f3f4f6; margin-bottom: 1.5rem; }
+        .tab-btn {
+            flex: 1; background: none; border: none; padding: 0.65rem; font-size: 0.9rem;
+            font-weight: 500; color: #9ca3af; cursor: pointer; transition: all 0.25s;
+            border-bottom: 2px solid transparent; margin-bottom: -2px;
+        }
+        .tab-btn.active { color: #e62e2d; border-bottom-color: #e62e2d; }
+        .tab-btn:hover:not(.active) { color: #374151; }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        .form-group { margin-bottom: 1.1rem; }
+        .form-group label { display: block; font-size: 0.83rem; font-weight: 500; color: #374151; margin-bottom: 0.4rem; }
+        .form-group input {
+            width: 100%; padding: 0.75rem 1rem;
+            border: 1.5px solid #e5e7eb; border-radius: 9px;
+            font-size: 0.9rem; color: #111827; outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            background: #fafafa;
+        }
+        .form-group input:focus { border-color: #e62e2d; box-shadow: 0 0 0 3px rgba(230,46,45,0.1); background: #fff; }
+        .form-group input::placeholder { color: #9ca3af; }
+
+        .btn-submit {
+            width: 100%; padding: 0.8rem; margin-top: 0.5rem;
+            background: #e62e2d; border: none; border-radius: 9px;
+            color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            transition: all 0.25s; letter-spacing: 0.01em;
+        }
+        .btn-submit:hover { background: #c42524; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(230,46,45,0.3); }
+        .btn-submit:active { transform: none; }
+
+        @media (max-width: 640px) {
+            .brand-panel { display: none; }
+            .form-panel { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+    <!-- Left Branding -->
+    <div class="brand-panel">
+        <div class="brand-logo">DocKey <span>AI</span></div>
+        <div class="brand-tagline">Secure Multi-Tenant<br>RAG Chatbot Platform</div>
+        <div class="brand-features">
+            <div class="feature-item"><div class="feature-icon">🔒</div> Strict data isolation per user</div>
+            <div class="feature-item"><div class="feature-icon">📄</div> PDF &amp; TXT document upload</div>
+            <div class="feature-item"><div class="feature-icon">💬</div> AI chat grounded in your docs</div>
+            <div class="feature-item"><div class="feature-icon">🔑</div> API key for external access</div>
+        </div>
+    </div>
+
+    <!-- Right Form -->
+    <div class="form-panel">
+        <div class="form-title">Welcome</div>
+        <div class="form-subtitle">Sign in to your account or create a new one</div>
+
+        {% if error %}
+        <div class="alert">⚠️ {{ error }}</div>
+        {% endif %}
+
+        <div class="tabs">
+            <button class="tab-btn active" id="tab-login-btn" onclick="showTab('login', this)">Login</button>
+            <button class="tab-btn" id="tab-register-btn" onclick="showTab('register', this)">Register</button>
+        </div>
+
+        <div id="login" class="tab-panel active">
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" placeholder="Enter your username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn-submit">Sign In →</button>
+            </form>
+        </div>
+
+        <div id="register" class="tab-panel">
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="reg-username">Username</label>
+                    <input type="text" id="reg-username" name="username" placeholder="Choose a username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" name="password" placeholder="Choose a strong password" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn-submit">Create Account →</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabId, btn) {
+        document.querySelectorAll('.tab-panel').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+    if (window.location.hash === '#register') {
+        showTab('register', document.getElementById('tab-register-btn'));
+    }
+</script>
+</body>
+</html>
